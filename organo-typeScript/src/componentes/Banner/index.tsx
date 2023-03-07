@@ -19,4 +19,4 @@ const Banner = ({ enderecoImagem, textoAlternativo }: BannerProps) =>
     )
 }
 
-export default Banner
+export default Banner 
