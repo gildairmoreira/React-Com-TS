@@ -27,9 +27,7 @@ const Time = (props: TimeProps) => {
         ))}
       </div>
     </section>
-  ) : (
-    ""
-  );
+  ) : <></>
 };
 
 export default Time;

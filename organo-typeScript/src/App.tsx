@@ -45,10 +45,10 @@ function App() {
     }
   ]
 
-  const [colaboradores, setColaboradores] = useState([])
+  const [colaboradores, setColaboradores] = useState<IColaborador[]>([])
 
   const aoNovoColaboradorAdicionado = (colaborador: IColaborador) => {
-    //setColaboradores([...colaboradores, colaborador])
+    setColaboradores([...colaboradores, colaborador])
   }
 
   return (
