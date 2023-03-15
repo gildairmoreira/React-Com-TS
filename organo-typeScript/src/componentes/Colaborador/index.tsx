@@ -8,6 +8,7 @@ interface ColaboradorProps{
     data:string
 }
 
+
 const Colaborador = ({ nome, imagem, cargo, corDeFundo,data }:ColaboradorProps) => {
     return (<div className='colaborador'>
         <div className='cabecalho' style={{ backgroundColor: corDeFundo }}>
