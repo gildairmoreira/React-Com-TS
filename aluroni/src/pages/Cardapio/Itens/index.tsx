@@ -4,7 +4,6 @@ import Item from './Item';
 import styles from './Itens.module.scss';
 import { useState, useEffect } from "react";
 
-
 interface Props {
     busca:string,
     filtro: number | null,
