@@ -1,28 +1,24 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
-import IRestaurante from '../../../interfaces/IRestaurante'
-import { Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Button } from '@mui/material'
-import { Link } from 'react-router-dom'
-import http from '../../../http'
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import { useEffect, useState } from "react"
+import http from "../../../http"
+import IRestaurante from "../../../interfaces/IRestaurante"
 
-const AdministracaoRestaurantes = () =>
-{
+import { Link as RouterLink } from 'react-router-dom'
 
-    const [ restaurantes, setRestaurantes ] = useState<IRestaurante[]>([])
+const AdministracaoRestaurantes = () => {
 
-    useEffect(() =>
-    {
+    const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([])
+
+    useEffect(() => {
         http.get<IRestaurante[]>('restaurantes/')
             .then(resposta => setRestaurantes(resposta.data))
     }, [])
 
-    const excluir = (restauranteAhSerExcluido: IRestaurante) =>
-    {
+    const excluir = (restauranteAhSerExcluido: IRestaurante) => {
         http.delete(`restaurantes/${restauranteAhSerExcluido.id}/`)
-            .then(() =>
-            {
+            .then(() => {
                 const listaRestaurante = restaurantes.filter(restaurante => restaurante.id !== restauranteAhSerExcluido.id)
-                setRestaurantes([ ...listaRestaurante ])
+                setRestaurantes([...listaRestaurante])
             })
     }
 
@@ -34,33 +30,28 @@ const AdministracaoRestaurantes = () =>
                         <TableCell>
                             Nome
                         </TableCell>
-
                         <TableCell>
                             Editar
                         </TableCell>
-
                         <TableCell>
                             Excluir
                         </TableCell>
                     </TableRow>
                 </TableHead>
-
                 <TableBody>
-                    {restaurantes.map(restaurante =>
-                        <TableRow key={restaurante.id}>
-                            <TableCell>{restaurante.nome}</TableCell>
-                            <TableCell>
-                                [<Link to={`/admin/restaurantes/${restaurante.id}`}>editar</Link>]
-                            </TableCell>
-                            <TableCell>
-                                <Button variant='outlined' color='error' onClick={() => excluir(restaurante)}>
-                                    Excluir
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    )
-                    }
-
+                    {restaurantes.map(restaurante => <TableRow key={restaurante.id}>
+                        <TableCell>
+                            {restaurante.nome}
+                        </TableCell>
+                        <TableCell>
+                            [ <RouterLink to={`/admin/restaurantes/${restaurante.id}`}>editar</RouterLink> ]
+                        </TableCell>
+                        <TableCell>
+                            <Button variant="outlined" color="error" onClick={() => excluir(restaurante)}>
+                                Excluir
+                            </Button>
+                        </TableCell>
+                    </TableRow>)}
                 </TableBody>
             </Table>
         </TableContainer>

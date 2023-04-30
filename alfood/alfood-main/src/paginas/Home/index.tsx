@@ -5,7 +5,8 @@ import NavBar from '../../componentes/NavBar';
 import Rodape from '../../componentes/Rodape';
 import estilos from './Home.module.scss';
 
-function App() {
+function App()
+{
   return (
     <>
       <NavBar />

@@ -4,7 +4,8 @@ import ListaRestaurantes from '../../componentes/ListaRestaurantes';
 import NavBar from '../../componentes/NavBar';
 import Rodape from '../../componentes/Rodape';
 
-function App() {
+function App()
+{
   return (
     <>
       <NavBar />
