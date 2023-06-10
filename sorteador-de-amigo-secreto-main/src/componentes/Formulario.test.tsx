@@ -1,10 +1,15 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import React from 'react'
 import Formulario from './Formulario'
+import { RecoilRoot } from 'recoil'
 
 test('quando o input está vazio, novos participantes não podem ser adicionados', () =>
 {
-    render(<Formulario />)
+    render(
+        <RecoilRoot>
+            <Formulario />
+        </RecoilRoot>
+    )
 
     // encontrar no DOM o input
     const input = screen.getByPlaceholderText('insira os nomes dos participante')
@@ -20,7 +25,11 @@ test('quando o input está vazio, novos participantes não podem ser adicionados
 
 test('adicionar um participante caso exista um nome preenchido', () =>
 {
-    render(<Formulario />)
+    render(
+        <RecoilRoot>
+            <Formulario />
+        </RecoilRoot>
+    )
 
     // encontrar no DOM o input
     const input = screen.getByPlaceholderText('insira os nomes dos participante')
@@ -43,4 +52,37 @@ test('adicionar um participante caso exista um nome preenchido', () =>
 
     //garantir que o input não tenha um valor
     expect(input).toHaveValue("")
+})
+
+test('nomes duplicados não podem sert adicionados na lista', () =>
+{
+    render(
+        <RecoilRoot>
+            <Formulario />
+        </RecoilRoot>
+    )
+
+    const input = screen.getByPlaceholderText('insira os nomes dos participante')
+
+    const botao = screen.getByRole('button')
+
+    fireEvent.change(input, {
+        target: {
+            value: 'Ana Catarina'
+        }
+    })
+
+    fireEvent.click(botao)
+
+    fireEvent.change(input, {
+        target: {
+            value: 'Ana Catarina'
+        }
+    })
+
+    fireEvent.click(botao)
+
+    const mensagemDeErro = screen.getByRole('alert')
+
+    expect(mensagemDeErro.textContent).toBe('Nomes duplicados não são permitidos!')
 })
