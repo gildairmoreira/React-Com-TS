@@ -86,3 +86,42 @@ test('nomes duplicados não podem sert adicionados na lista', () =>
 
     expect(mensagemDeErro.textContent).toBe('Nomes duplicados não são permitidos!')
 })
+
+
+
+test('a mensagem de erro de sumir após os timers', () =>
+{
+    render(
+        <RecoilRoot>
+            <Formulario />
+        </RecoilRoot>
+    )
+
+    const input = screen.getByPlaceholderText('insira os nomes dos participante')
+
+    const botao = screen.getByRole('button')
+
+    fireEvent.change(input, {
+        target: {
+            value: 'Ana Catarina'
+        }
+    })
+
+    fireEvent.click(botao)
+
+    fireEvent.change(input, {
+        target: {
+            value: 'Ana Catarina'
+        }
+    })
+
+    fireEvent.click(botao)
+
+    let mensagemDeErro = screen.getByRole('alert')
+
+    expect(mensagemDeErro).toBeInTheDocument()
+
+    //esperar N segundos
+})
+
+
