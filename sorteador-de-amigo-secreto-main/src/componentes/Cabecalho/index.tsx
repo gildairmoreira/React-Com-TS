@@ -1,8 +1,6 @@
-// src/componentes/Cabecalho/index.tsx
 import './estilos.css'
 
-const Cabecalho = () =>
-{
+const Cabecalho = () => {
     return (
         <header className="cabecalho">
             <div className="imagem-logo" role="img" aria-label='Logo do Sorteador'></div>
