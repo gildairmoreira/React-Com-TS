@@ -3,6 +3,7 @@ import React from "react";
 import { RecoilRoot } from "recoil";
 import { useListaDeParticipantes } from "../state/hook/useListaDeParticipantes";
 import Sorteio from "./Sorteio";
+import { useResultadoSorteio } from "../state/hook/useResultadoSorteio";
 
 
 jest.mock('../state/hook/useListaDeParticipantes', () =>
@@ -12,6 +13,14 @@ jest.mock('../state/hook/useListaDeParticipantes', () =>
     }
 })
 
+jest.mock('../state/hook/useResultadoSorteio', () =>
+{
+    return {
+        useResultadoSorteio: jest.fn()
+    }
+})
+
+
 describe("na pagina de sorteio", () =>
 {
     const participantes = [
@@ -20,9 +29,16 @@ describe("na pagina de sorteio", () =>
         'Jorel'
     ]
 
+    const resultado = new Map([
+        [ 'Ana', 'Jorel' ],
+        [ 'Jorel', 'Catarina' ],
+        [ 'Catarina', 'Ana' ]
+    ])
+
     beforeEach(() =>
     {
         (useListaDeParticipantes as jest.Mock).mockReturnValue(participantes)
+            (useResultadoSorteio as jest.Mock).mockReturnValue(resultado)
     })
 
     test('todos os participantes podem exibir o seu amigo secreto', () =>
@@ -32,7 +48,7 @@ describe("na pagina de sorteio", () =>
                 <Sorteio />
             </RecoilRoot>)
         const opcoes = screen.queryAllByRole('option')
-        expect(opcoes).toHaveLength(participantes.length)
+        expect(opcoes).toHaveLength(participantes.length + 1)
     })
 
     test('o amigo secreto é exibido quando solicitado', () =>
