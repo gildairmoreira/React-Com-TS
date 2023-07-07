@@ -4,8 +4,7 @@ import { RecoilRoot } from "recoil";
 import { useListaDeParticipantes } from "../state/hook/useListaDeParticipantes";
 import Rodape from "./Rodape";
 
-jest.mock('../state/hook/useListaDeParticipantes', () =>
-{
+jest.mock('../state/hook/useListaDeParticipantes', () => {
     return {
         useListaDeParticipantes: jest.fn()
     }
@@ -14,28 +13,23 @@ jest.mock('../state/hook/useListaDeParticipantes', () =>
 const mockNavegacao = jest.fn()
 const mockSorteio = jest.fn()
 
-jest.mock('../state/hook/useSorteador', () =>
-{
+jest.mock('../state/hook/useSorteador', () => {
     return {
         useSorteador: () => mockSorteio
     }
 })
 
-jest.mock('react-router-dom', () =>
-{
+jest.mock('react-router-dom', () => {
     return {
         useNavigate: () => mockNavegacao
     }
 })
 
-describe('quando não existem participantes suficientes', () =>
-{
-    beforeEach(() =>
-    {
+describe('quando não existem participantes suficientes', () => {
+    beforeEach(() => {
         (useListaDeParticipantes as jest.Mock).mockReturnValue([])
     })
-    test('a brincadeira não pode ser iniciada', () =>
-    {
+    test('a brincadeira não pode ser iniciada', () => {
         render(<RecoilRoot>
             <Rodape />
         </RecoilRoot>)
@@ -44,22 +38,18 @@ describe('quando não existem participantes suficientes', () =>
     })
 })
 
-describe('quando existem participantes suficientes', () =>
-{
-    beforeEach(() =>
-    {
-        (useListaDeParticipantes as jest.Mock).mockReturnValue([ 'Ana', 'Catarina', 'Josefina' ])
+describe('quando existem participantes suficientes', () => {
+    beforeEach(() => {
+        (useListaDeParticipantes as jest.Mock).mockReturnValue(['Ana', 'Catarina', 'Josefina'])
     })
-    test('a brincadeira pode ser iniciada', () =>
-    {
+    test('a brincadeira pode ser iniciada', () => {
         render(<RecoilRoot>
             <Rodape />
         </RecoilRoot>)
         const botao = screen.getByRole('button')
         expect(botao).not.toBeDisabled()
     })
-    test('a brincadeira foi iniciada', () =>
-    {
+    test('a brincadeira foi iniciada', () => {
         render(<RecoilRoot>
             <Rodape />
         </RecoilRoot>)

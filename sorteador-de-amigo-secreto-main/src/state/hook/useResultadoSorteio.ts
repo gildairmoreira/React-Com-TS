@@ -1,7 +1,6 @@
 import { useRecoilValue } from "recoil"
-import { resultadoDoAmigoScreto } from "../atom"
+import { resultadoAmigoSecreto } from "../atom"
 
-export const useResultadoSorteio = () =>
-{
-    return useRecoilValue(resultadoDoAmigoScreto)
+export const useResultadoSorteio = () => {
+    return useRecoilValue(resultadoAmigoSecreto)
 }
